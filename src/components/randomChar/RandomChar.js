@@ -48,7 +48,12 @@ class RandomChar extends Component {
         <img
           src={thumbnail}
           alt="Random character"
-          className="randomchar__img"
+          className={
+            thumbnail ==
+            "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+              ? "randomchar__notimg"
+              : "randomchar__img"
+          }
         />
         <div className="randomchar__info">
           <p className="randomchar__name">{name}</p>
