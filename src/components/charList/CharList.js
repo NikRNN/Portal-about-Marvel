@@ -1,5 +1,4 @@
 import "./charList.scss";
-import abyss from "../../resources/img/abyss.jpg";
 import { Component } from "react";
 import MarvelService from "../../services/MarvelService";
 
@@ -41,7 +40,16 @@ class CharList extends Component {
           {charList.map((item) => {
             return (
               <li className="char__item">
-                <img src={item.thumbnail} alt="abyss" />
+                <img
+                  src={item.thumbnail}
+                  className={
+                    item.thumbnail ==
+                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+                      ? "char__item__notimg"
+                      : "char__item__img"
+                  }
+                  alt="abyss"
+                />
                 <div className="char__name">{item.name}</div>
               </li>
             );

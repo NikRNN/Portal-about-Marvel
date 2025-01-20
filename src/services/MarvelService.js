@@ -12,7 +12,9 @@ class MarvelService {
       "https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=200&apikey=63ecc63e1c62910f53b2061e0aa2656e"
     );
 
-    return res.data.results.map((item) => this._returnDataCharacter(item));
+    return res.data.results.map((item) =>
+      this.onCheckInfoChar(this._returnDataCharacter(item))
+    );
   };
 
   getSingleCharacter = async (id) => {
@@ -27,8 +29,10 @@ class MarvelService {
       item.description.length > 100
         ? item.description.slice(0, 97) + "..."
         : item.description;
+    const name =
+      item.name.length > 27 ? item.name.slice(0, 27) + "..." : item.name;
 
-    return { ...item, description: descr };
+    return { ...item, description: descr, name: name };
   };
 
   _returnDataCharacter = (res) => {
