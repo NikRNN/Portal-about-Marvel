@@ -1,6 +1,8 @@
 import "./charList.scss";
 import { Component } from "react";
 import MarvelService from "../../services/MarvelService";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/Spinner";
 
 class CharList extends Component {
   state = {
@@ -34,12 +36,19 @@ class CharList extends Component {
   render() {
     const { charList, error, loading } = this.state;
 
-    return (
+    const errorMessage = error ? <ErrorMessage /> : null;
+    const loadingStatus = loading ? <Spinner /> : null;
+
+    const content = !(errorMessage || loadingStatus) ? (
       <div className="char__list">
         <ul className="char__grid">
           {charList.map((item) => {
             return (
-              <li className="char__item">
+              <li
+                key={item.id}
+                onClick={() => this.props.changeSelectedChar(item.id)}
+                className="char__item"
+              >
                 <img
                   src={item.thumbnail}
                   className={
@@ -54,48 +63,19 @@ class CharList extends Component {
               </li>
             );
           })}
-
-          {/* <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item char__item_selected">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li>
-          <li className="char__item">
-            <img src={abyss} alt="abyss" />
-            <div className="char__name">Abyss</div>
-          </li> */}
         </ul>
         <button className="button button__main button__long">
           <div className="inner">Показать больше</div>
         </button>
       </div>
+    ) : null;
+
+    return (
+      <>
+        {errorMessage}
+        {loadingStatus}
+        {content}
+      </>
     );
   }
 }

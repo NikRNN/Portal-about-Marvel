@@ -12,6 +12,7 @@ class RandomChar extends Component {
     thumbnail: null,
     homepage: null,
     wiki: null,
+    comics: null,
     loading: true,
     error: false,
   };
@@ -60,10 +61,11 @@ class RandomChar extends Component {
           <p className="randomchar__descr">{description}</p>
           <div className="randomchar__btns">
             <a href={homepage} className="button button__main">
-              <div className="inner">homepage</div>
+              <div className="inner">Домашняя страница</div>
             </a>
+
             <a href={wiki} className="button button__secondary">
-              <div className="inner">Wiki</div>
+              <div className="inner">Вики</div>
             </a>
           </div>
         </div>
@@ -77,11 +79,11 @@ class RandomChar extends Component {
         {content}
         <div className="randomchar__static">
           <p className="randomchar__title">
-            Random character for today!
+            Случайный персонаж на сегодня!
             <br />
-            Do you want to get to know him better?
+            Хотите узнать его лучше?
           </p>
-          <p className="randomchar__title">Or choose another one</p>
+          <p className="randomchar__title">или выберите другого</p>
           <button
             className="button button__main"
             onClick={() => {
@@ -89,7 +91,7 @@ class RandomChar extends Component {
               this.setState({ loading: true });
             }}
           >
-            <div className="inner">try it</div>
+            <div className="inner">попробуй это!</div>
           </button>
           <img src={mjolnir} alt="mjolnir" className="randomchar__decoration" />
         </div>

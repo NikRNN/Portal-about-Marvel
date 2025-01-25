@@ -26,25 +26,28 @@ class MarvelService {
 
   onCheckInfoChar = (item) => {
     const descr =
-      item.description.length > 100
-        ? item.description.slice(0, 97) + "..."
+      item.description.length > 150
+        ? item.description.slice(0, 110) + "..."
         : item.description;
-    const name =
-      item.name.length > 27 ? item.name.slice(0, 27) + "..." : item.name;
 
-    return { ...item, description: descr, name: name };
+    const comics =
+      item.comics.length > 9 ? item.comics.slice(0, 10) : item.comics;
+
+    return { ...item, description: descr, comics: comics };
   };
 
   _returnDataCharacter = (res) => {
     return {
+      id: res.id,
       name: res.name,
       description:
         res.description === ""
-          ? "Oooops, we don't have any description"
-          : res.description,
+          ? "Ой, у нас отсутствует описание персонажа"
+          : "Описание только на английском :) " + res.description,
       thumbnail: `${res.thumbnail.path}.${res.thumbnail.extension}`,
       homepage: res.urls[0].url,
       wiki: res.urls[1].url,
+      comics: res.comics.items,
       loading: false,
     };
   };

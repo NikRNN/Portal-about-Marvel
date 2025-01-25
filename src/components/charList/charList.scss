@@ -5,8 +5,9 @@
     margin-top: 50px;
     display: grid;
     grid-template-columns: 650px 425px;
+
     column-gap: 25px;
-    align-items: start;
+    // align-items: center;
   }
   &__grid {
     display: grid;
@@ -16,7 +17,7 @@
   }
   &__item {
     width: 200px;
-    height: 318px;
+    min-height: 300px;
     background-color: $dark;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
     padding: 15px;
