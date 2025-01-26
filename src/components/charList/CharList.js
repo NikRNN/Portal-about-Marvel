@@ -7,8 +7,11 @@ import Spinner from "../spinner/Spinner";
 class CharList extends Component {
   state = {
     charList: [],
-    error: null,
+    error: false,
     loading: true,
+    newItemsLoading: false,
+    offset: 2000,
+    charEnded: false,
   };
 
   marvelService = new MarvelService();
@@ -24,6 +27,7 @@ class CharList extends Component {
         this.setState({
           charList: res,
           loading: false,
+          offset: this.state.offset + 9,
         })
       )
       .catch(this.onError);
@@ -33,8 +37,37 @@ class CharList extends Component {
     this.makeCharList();
   }
 
+  onRepeatRequest = (offset) => {
+    let ended = false;
+
+    this.onCharLoading();
+    this.marvelService
+      .getAllCharacters(offset)
+      .then((res) => {
+        if (res.length < 9) {
+          ended = true;
+        }
+
+        this.setState(({ charList, offset }) => ({
+          charList: [...charList, ...res],
+          loading: false,
+          newItemsLoading: false,
+          offset: offset + 9,
+          charEnded: ended,
+        }));
+      })
+      .catch(this.onError);
+  };
+
+  onCharLoading = () => {
+    this.setState({
+      newItemsLoading: true,
+    });
+  };
+
   render() {
-    const { charList, error, loading } = this.state;
+    const { charList, error, loading, offset, newItemsLoading, charEnded } =
+      this.state;
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const loadingStatus = loading ? <Spinner /> : null;
@@ -64,9 +97,23 @@ class CharList extends Component {
             );
           })}
         </ul>
-        <button className="button button__main button__long">
-          <div className="inner">Показать больше</div>
-        </button>
+
+        {charEnded ? (
+          <button className="char__notchar inner">
+            Извините, больше персонажей нет!
+          </button>
+        ) : (
+          <button
+            disabled={newItemsLoading}
+            className="button button__main button__long"
+            // style={{ display: charEnded ? "none" : "block" }}
+            onClick={() => {
+              this.onRepeatRequest(offset);
+            }}
+          >
+            <div className="inner">Показать больше</div>
+          </button>
+        )}
       </div>
     ) : null;
 
