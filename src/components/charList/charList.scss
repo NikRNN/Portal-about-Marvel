@@ -5,9 +5,8 @@
     margin-top: 50px;
     display: grid;
     grid-template-columns: 650px 425px;
-
     column-gap: 25px;
-    // align-items: center;
+    align-items: start;
   }
   &__grid {
     display: grid;
@@ -17,7 +16,7 @@
   }
   &__item {
     width: 200px;
-    min-height: 300px;
+    height: 318px;
     background-color: $dark;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
     padding: 15px;
@@ -32,7 +31,7 @@
     &__notimg {
       width: 200px;
       height: 200px;
-      object-fit: contain;
+      object-fit: unset;
       transform: translate(-15px, -15px);
     }
     &_selected {
