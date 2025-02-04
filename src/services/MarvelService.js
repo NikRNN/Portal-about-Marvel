@@ -1,32 +1,28 @@
-class MarvelService {
-  _baseOffset = 210;
+import { useHttp } from "../hooks/http.hook";
 
-  getResource = async (url) => {
-    let res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-    }
-    return await res.json();
-  };
+const useMarvelService = () => {
+  const { request, loading, error, clearError } = useHttp();
 
-  getAllCharacters = async (offset = this._baseOffset) => {
-    const res = await this.getResource(
+  const _baseOffset = 210;
+
+  const getAllCharacters = async (offset = _baseOffset) => {
+    const res = await request(
       `https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=${offset}&apikey=63ecc63e1c62910f53b2061e0aa2656e`
     );
 
     return res.data.results.map((item) =>
-      this.onCheckInfoChar(this._returnDataCharacter(item))
+      onCheckInfoChar(_returnDataCharacter(item))
     );
   };
 
-  getSingleCharacter = async (id) => {
-    const res = await this.getResource(
+  const getSingleCharacter = async (id) => {
+    const res = await request(
       `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e`
     );
-    return this.onCheckInfoChar(this._returnDataCharacter(res.data.results[0]));
+    return onCheckInfoChar(_returnDataCharacter(res.data.results[0]));
   };
 
-  onCheckInfoChar = (item) => {
+  const onCheckInfoChar = (item) => {
     const descr =
       item.description.length > 150
         ? item.description.slice(0, 110) + "..."
@@ -38,7 +34,7 @@ class MarvelService {
     return { ...item, description: descr, comics: comics };
   };
 
-  _returnDataCharacter = (res) => {
+  const _returnDataCharacter = (res) => {
     return {
       id: res.id,
       name: res.name,
@@ -53,6 +49,13 @@ class MarvelService {
       loading: false,
     };
   };
-}
 
-export default MarvelService;
+  return {
+    loading,
+    error,
+    getAllCharacters,
+    getSingleCharacter,
+  };
+};
+
+export default useMarvelService;

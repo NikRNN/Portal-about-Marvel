@@ -1,63 +1,46 @@
 import "./charList.scss";
 import { useState, useEffect } from "react";
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 
 const CharList = ({ changeSelectedChar }) => {
   const [charList, setCharList] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [newItemsLoading, setNewItemsLoading] = useState(false);
   const [offset, setOffset] = useState(210);
   const [charEnded, setCharEnded] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
-  const marvelService = new MarvelService();
+  const { error, loading, getAllCharacters } = useMarvelService();
 
   useEffect(() => {
     makeCharList();
   }, []);
 
-  const onCharLoading = () => {
-    setNewItemsLoading(true);
-  };
-
-  const onError = () => {
-    setLoading(false);
-    setError(true);
-  };
-
   const makeCharList = () => {
-    marvelService
-      .getAllCharacters()
-      .then((res) => {
-        setCharList(res);
-        setLoading(false);
-        setOffset(offset + 9);
-      })
-      .catch(onError);
+    getAllCharacters().then((res) => {
+      setCharList(res);
+      setOffset(offset + 9);
+      setNewItemsLoading(true);
+    });
   };
 
   const onRepeatRequest = (offset) => {
     let ended = false;
-    onCharLoading();
-    marvelService
-      .getAllCharacters(offset)
-      .then((res) => {
-        if (res.length < 9) {
-          ended = true;
-        }
-        setCharList((charList) => [...charList, ...res]);
-        setLoading((loading) => false);
-        setNewItemsLoading((newItemsLoading) => false);
-        setOffset((offset) => offset + 9);
-        setCharEnded((charEnded) => ended);
-      })
-      .catch(onError);
+    setDisabled(true);
+    getAllCharacters(offset).then((res) => {
+      if (res.length < 9) {
+        ended = true;
+      }
+      setCharList((charList) => [...charList, ...res]);
+      setOffset((offset) => offset + 9);
+      setCharEnded(ended);
+      setDisabled(false);
+    });
   };
 
   const errorMessage = error ? <ErrorMessage /> : null;
-  const loadingStatus = loading ? <Spinner /> : null;
+  const loadingStatus = loading && !newItemsLoading ? <Spinner /> : null;
 
   const content = !(errorMessage || loadingStatus) ? (
     <div className="char__list">
@@ -91,14 +74,15 @@ const CharList = ({ changeSelectedChar }) => {
         </button>
       ) : (
         <button
-          disabled={newItemsLoading}
+          disabled={disabled}
           className="button button__main button__long"
-          // style={{ display: charEnded ? "none" : "block" }}
           onClick={() => {
             onRepeatRequest(offset);
           }}
         >
-          <div className="inner">Показать больше</div>
+          <div className="inner">
+            {disabled ? "Идет загрузка..." : "Показать больше"}
+          </div>
         </button>
       )}
     </div>

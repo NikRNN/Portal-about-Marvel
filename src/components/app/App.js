@@ -20,9 +20,9 @@ const App = () => {
         <RandomChar />
         <div className="char__content">
           <CharList changeSelectedChar={changeSelectedChar} />
-          <CharInfo charInfo={selectedChar} />
+          {/* <CharInfo charInfo={selectedChar} /> */}
         </div>
-        <img className="bg-decoration" src={decoration} alt="vision" />
+        {/* <img className="bg-decoration" src={decoration} alt="vision" /> */}
       </main>
     </div>
   );
