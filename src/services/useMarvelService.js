@@ -22,6 +22,10 @@ const useMarvelService = () => {
     return onCheckInfoChar(_returnDataCharacter(res.data.results[0]));
   };
 
+  const getAllComics = async () => {
+    return;
+  };
+
   const onCheckInfoChar = (item) => {
     const descr =
       item.description.length > 150
@@ -55,6 +59,7 @@ const useMarvelService = () => {
     error,
     getAllCharacters,
     getSingleCharacter,
+    clearError,
   };
 };
 
