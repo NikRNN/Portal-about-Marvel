@@ -23,13 +23,6 @@ const useMarvelService = () => {
     return onCheckInfoChar(_returnDataCharacter(res.data.results[0]));
   };
 
-  const getAllComics = async (offset = _baseOffsetCom) => {
-    const res = await request(
-      "https://gateway.marvel.com/v1/public/comics?limit=8&apikey=63ecc63e1c62910f53b2061e0aa2656e"
-    );
-    return;
-  };
-
   const onCheckInfoChar = (item) => {
     const descr =
       item.description.length > 150
@@ -40,6 +33,14 @@ const useMarvelService = () => {
       item.comics.length > 9 ? item.comics.slice(0, 10) : item.comics;
 
     return { ...item, description: descr, comics: comics };
+  };
+
+  const getAllComics = async (offset = 0) => {
+    const res = await request(
+      `https://gateway.marvel.com:443/v1/public/comics?orderBy=issueNumber&limit=8&offset=${offset}&&apikey=63ecc63e1c62910f53b2061e0aa2656e`
+    );
+
+    return res.data.results.map(_returnDataComic);
   };
 
   const _returnDataCharacter = (res) => {
@@ -58,12 +59,24 @@ const useMarvelService = () => {
     };
   };
 
+  const _returnDataComic = (res) => {
+    return {
+      id: res.id,
+      thumbnail: `${res.thumbnail.path}.${res.thumbnail.extension}`,
+      title: `${res.title.slice(0, -4)}`,
+      price: `${
+        res.prices.length === 1 ? "Цена отсутствует" : res.prices[1].price
+      }`,
+    };
+  };
+
   return {
     loading,
     error,
     getAllCharacters,
     getSingleCharacter,
     clearError,
+    getAllComics,
   };
 };
 
