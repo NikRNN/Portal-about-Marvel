@@ -34,7 +34,6 @@ const CharInfo = ({ charInfo }) => {
   ) : null;
   const skeleton =
     errorMessage || loadingMessage || content ? null : <Skeleton />;
-  console.log("render");
 
   return (
     <div className="char__info">

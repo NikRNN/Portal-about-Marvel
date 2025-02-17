@@ -4,6 +4,7 @@ import useMarvelService from "../../services/useMarvelService";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
+import { Link } from "react-router-dom";
 
 const ComicsList = () => {
   const [comicsList, setComicsList] = useState([]);
@@ -46,25 +47,26 @@ const ComicsList = () => {
   const content = !(errorMessage || loadingStatus) ? (
     <div className="comics__list">
       <ul className="comics__grid">
-        {comicsList.map((item) => {
+        {comicsList.map((item, i) => {
           return (
-            <li className="comics__item" key={item.id}>
-              <a href="#" />
-              <img
-                src={item.thumbnail}
-                alt={item.title}
-                className="comics__item-img"
-              />
-              <div className="comics__item-name">{item.title}</div>
-              <div className="comics__item-price">{item.price}</div>
+            <li className="comics__item" key={i}>
+              <Link to={`/comics/${item.id}`}>
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="comics__item-img"
+                />
+                <div className="comics__item-name">{item.title}</div>
+                <div className="comics__item-price">{item.price}</div>
+              </Link>
             </li>
           );
         })}
       </ul>
 
       {comicsEnded ? (
-        <button className="button button__main button__long">
-          Комиксы закончились!
+        <button className="button button__main button__long" disabled>
+          <div className="inner">Комиксы закончились!</div>
         </button>
       ) : (
         <button

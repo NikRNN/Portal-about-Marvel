@@ -43,6 +43,14 @@ const useMarvelService = () => {
     return res.data.results.map(_returnDataComic);
   };
 
+  const getSingleComic = async (id) => {
+    const res = await request(
+      `https://gateway.marvel.com:443/v1/public/comics/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e`
+    );
+
+    return _returnDataComic(res.data.results[0]);
+  };
+
   const _returnDataCharacter = (res) => {
     return {
       id: res.id,
@@ -67,6 +75,11 @@ const useMarvelService = () => {
       price: `${
         res.prices.length === 1 ? "Цена отсутствует" : res.prices[1].price
       }`,
+      description: res.description || "Извини, у нас отсутствует описание",
+      language: res.textObjects.language || "en-rus",
+      pageCount: res.pageCount
+        ? `${res.pageCount} стр.`
+        : `Извини, у нас отсутствует информация о количестве страниц`,
     };
   };
 
@@ -77,6 +90,7 @@ const useMarvelService = () => {
     getSingleCharacter,
     clearError,
     getAllComics,
+    getSingleComic,
   };
 };
 
