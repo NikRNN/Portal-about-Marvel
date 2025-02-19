@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import useMarvelService from "../../../services/useMarvelService";
 import Spinner from "../../spinner/Spinner";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
+import ErrorBoundary from "../../errorBoundary/ErrorBoundary";
 
 const SingleComicPage = () => {
   const { comicId } = useParams();
@@ -14,6 +15,7 @@ const SingleComicPage = () => {
 
   const updateComic = () => {
     clearError();
+
     getSingleComic(comicId).then((res) => setComic(res));
   };
 
@@ -27,16 +29,12 @@ const SingleComicPage = () => {
     <View comic={comic} />
   ) : null;
 
-  console.log(error);
-  console.log(loading);
-  console.log(comic);
-
   return (
-    <>
+    <ErrorBoundary>
       {errorMessage}
       {loadingMessage}
       {content}
-    </>
+    </ErrorBoundary>
   );
 };
 

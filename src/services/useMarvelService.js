@@ -1,7 +1,7 @@
 import { useHttp } from "../hooks/http.hook";
 
 const useMarvelService = () => {
-  const { request, loading, error, clearError } = useHttp();
+  const { request, loading, error, setError, clearError } = useHttp();
 
   const _baseOffset = 210;
   const _baseOffsetCom = 0;
@@ -44,11 +44,17 @@ const useMarvelService = () => {
   };
 
   const getSingleComic = async (id) => {
-    const res = await request(
-      `https://gateway.marvel.com:443/v1/public/comics/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e`
-    );
+    let res;
 
-    return _returnDataComic(res.data.results[0]);
+    try {
+      res = await request(
+        `https://gateway.marvel.com:443/v1/public/comics/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e`
+      );
+      return _returnDataComic(res.data.results[0]);
+    } catch (error) {
+      console.error("Ошибка при загрузке комикса");
+      setError(true);
+    }
   };
 
   const _returnDataCharacter = (res) => {
