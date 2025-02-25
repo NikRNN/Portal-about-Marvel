@@ -85,4 +85,17 @@
       transition: none;
     }
   }
+
+}
+
+.fade-enter,
+.fade-appear {
+  opacity: 0;
+  transform: translateY(80px);
+}
+.fade-enter-active,
+.fade-appear-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 1200ms ease-in-out transform 1200ms ease-in-out;
 }

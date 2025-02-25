@@ -1,0 +1,101 @@
+.char__content {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 650px 425px;
+  -moz-column-gap: 25px;
+       column-gap: 25px;
+  align-items: start;
+}
+.char__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  -moz-column-gap: 25px;
+       column-gap: 25px;
+  row-gap: 30px;
+}
+.char__item {
+  width: 200px;
+  height: 318px;
+  background-color: #232222;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.3s transform;
+}
+.char__item__img {
+  width: 200px;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: translate(-15px, -15px);
+}
+.char__item__notimg {
+  width: 200px;
+  height: 200px;
+  -o-object-fit: unset;
+     object-fit: unset;
+  transform: translate(-15px, -15px);
+}
+.char__item_selected {
+  box-shadow: 0 5px 20px #9F0013;
+  transform: translateY(-8px);
+}
+.char__name {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 29px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.char__notchar {
+  display: block;
+  margin: 0 auto;
+  min-width: 101px;
+  margin-top: 20px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 18px;
+  transition: 0.3s transform;
+  border: none;
+  background-color: #9f0013;
+  position: relative;
+}
+.char__notchar::before {
+  border-color: #9F0013 transparent;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: -10px;
+  transition: none;
+}
+.char__notchar::after {
+  border-color: #9F0013 transparent;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  transform: rotate(180deg);
+  transition: none;
+}
+
+.fade-enter,
+.fade-appear {
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+.fade-enter-active,
+.fade-appear-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 1200ms ease-in-out transform 1200ms ease-in-out;
+}/*# sourceMappingURL=charList.css.map */
