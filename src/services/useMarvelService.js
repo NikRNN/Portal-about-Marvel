@@ -3,12 +3,12 @@ import { useHttp } from "../hooks/http.hook";
 const useMarvelService = () => {
   const { request, loading, error, setError, clearError } = useHttp();
 
-  const _baseOffset = 210;
-  const _baseOffsetCom = 0;
+  const _baseOffset = 1;
 
   const getAllCharacters = async (offset = _baseOffset) => {
     const res = await request(
-      `https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=${offset}&apikey=63ecc63e1c62910f53b2061e0aa2656e`
+      // `https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=${offset}&apikey=63ecc63e1c62910f53b2061e0aa2656e` //запрос на оригинальный api, по состоянию на май 2025 не работает
+      `https://marvel-server-zeta.vercel.app/characters?limit=9&offset=${offset}&apikey=d4eecb0c66dedbfae4eab45d312fc1df` //запрос на похожий сервис, но с меньшим количеством персонажей
     );
 
     return res.data.results.map((item) =>
@@ -18,8 +18,10 @@ const useMarvelService = () => {
 
   const getSingleCharacter = async (id) => {
     const res = await request(
-      `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e`
+      // `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e` //запрос на оригинальный api, по состоянию на май 2025 не работает
+      `https://marvel-server-zeta.vercel.app/characters/${id}?apikey=d4eecb0c66dedbfae4eab45d312fc1df` //запрос на похожий сервис, но с меньшим количеством персонажей
     );
+    console.log(res);
     return onCheckInfoChar(_returnDataCharacter(res.data.results[0]));
   };
 
@@ -37,19 +39,20 @@ const useMarvelService = () => {
 
   const getAllComics = async (offset = 0) => {
     const res = await request(
-      `https://gateway.marvel.com:443/v1/public/comics?orderBy=issueNumber&limit=8&offset=${offset}&&apikey=63ecc63e1c62910f53b2061e0aa2656e`
+      // `https://gateway.marvel.com:443/v1/public/comics?orderBy=issueNumber&limit=8&offset=${offset}&&apikey=63ecc63e1c62910f53b2061e0aa2656e` //запрос на оригинальный api, по состоянию на май 2025 не работает);
+      "https://marvel-server-zeta.vercel.app/comics?limit=10&apikey=d4eecb0c66dedbfae4eab45d312fc1df" //запрос на похожий сервис, но с меньшим количеством персонажей
     );
-
     return res.data.results.map(_returnDataComic);
   };
 
   const getSingleComic = async (id) => {
     let res;
-
     try {
       res = await request(
-        `https://gateway.marvel.com:443/v1/public/comics/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e`
+        // `https://gateway.marvel.com:443/v1/public/comics/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e` //запрос на оригинальный api, по состоянию на май 2025 не работает);
+        `https://marvel-server-zeta.vercel.app/comics/${id}?apikey=d4eecb0c66dedbfae4eab45d312fc1df`
       );
+
       return _returnDataComic(res.data.results[0]);
     } catch (error) {
       console.error("Ошибка при загрузке комикса");
