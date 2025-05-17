@@ -10,14 +10,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.29.0",
-    "react-scripts": "^5.0.1",
     "web-vitals": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+     "start": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -38,7 +36,9 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
     "react-transition-group": "^4.4.5",
-    "sass": "^1.77.2"
+    "sass": "^1.77.2",
+    "vite": "^6.3.5"
   }
 }

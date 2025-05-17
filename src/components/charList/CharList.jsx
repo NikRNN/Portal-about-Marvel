@@ -2,8 +2,8 @@ import "./charList.scss";
 import { useState, useEffect } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useMarvelService from "../../services/useMarvelService";
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import Spinner from "../spinner/Spinner";
+import ErrorMessage from "../errorMessage/ErrorMessage.jsx";
+import Spinner from "../spinner/Spinner.jsx";
 
 const CharList = ({ changeSelectedChar }) => {
   const [charList, setCharList] = useState([]);

@@ -1,8 +1,8 @@
 import "./charInfo.scss";
 import { useState, useEffect } from "react";
 import useMarvelService from "../../services/useMarvelService";
-import Spinner from "../spinner/Spinner";
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/Spinner.jsx";
+import ErrorMessage from "../errorMessage/ErrorMessage.jsx";
 import Skeleton from "../skeleton/Skeleton";
 
 const CharInfo = ({ charInfo }) => {

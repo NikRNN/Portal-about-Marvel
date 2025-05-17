@@ -2,8 +2,8 @@ import "./comicsList.scss";
 
 import useMarvelService from "../../services/useMarvelService";
 import { useEffect, useState } from "react";
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import Spinner from "../spinner/Spinner";
+import ErrorMessage from "../errorMessage/ErrorMessage.jsx";
+import Spinner from "../spinner/Spinner.jsx";
 import { Link } from "react-router-dom";
 
 const ComicsList = () => {
