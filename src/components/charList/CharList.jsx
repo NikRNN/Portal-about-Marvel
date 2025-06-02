@@ -8,7 +8,7 @@ import Spinner from "../spinner/Spinner.jsx";
 const CharList = ({ changeSelectedChar }) => {
   const [charList, setCharList] = useState([]);
   const [newItemsLoading, setNewItemsLoading] = useState(false);
-  const [offset, setOffset] = useState(210);
+  const [offset, setOffset] = useState(0);
   const [charEnded, setCharEnded] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -34,7 +34,7 @@ const CharList = ({ changeSelectedChar }) => {
     let ended = false;
     setDisabled(true);
     getAllCharacters(offset).then((res) => {
-      if (res.length < 9) {
+      if (res.length < 5) {
         ended = true;
       }
       setCharList((charList) => [...charList, ...res]);

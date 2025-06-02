@@ -1,4 +1,5 @@
 import { useHttp } from "../hooks/http.hook";
+import thorImg from "../resources/img/thor.jpeg";
 
 const useMarvelService = () => {
   const { request, loading, error, setError, clearError } = useHttp();
@@ -21,7 +22,6 @@ const useMarvelService = () => {
       // `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=63ecc63e1c62910f53b2061e0aa2656e` //запрос на оригинальный api, по состоянию на май 2025 не работает
       `https://marvel-server-zeta.vercel.app/characters/${id}?apikey=d4eecb0c66dedbfae4eab45d312fc1df` //запрос на похожий сервис, но с меньшим количеством персонажей
     );
-    console.log(res);
     return onCheckInfoChar(_returnDataCharacter(res.data.results[0]));
   };
 
@@ -59,6 +59,43 @@ const useMarvelService = () => {
       setError(true);
     }
   };
+
+  const getCharacterByName = async (name) => {
+    try {
+      let res = await request(
+        `https://marvel-server-zeta.vercel.app/characters?name=${name}&apikey=d4eecb0c66dedbfae4eab45d312fc1df`
+      );
+      return _returnDataCharacter(res.data.results[0]);
+    } catch (error) {
+      console.error("Ошибка при загрузке персонажа");
+      setError(true);
+    }
+  };
+
+  // const getCharacterByName = () => {
+  //   //Marvel API не работает, его замена не знает запрос по имени персонажа, поэтому имитация запроса на сервер с именем; запрос
+  //   return new Promise((resolve, reject) => {
+  //     const rndNum = Math.floor(Math.random() * 11);
+  //     if (rndNum <= 5) {
+  //       setTimeout(() => {
+  //         resolve({
+  //           name: "Тор",
+  //           descr:
+  //             "Тор — один из главных супергероев вселенной Marvel, бог грома, наследник престола Асгарда и член команды Мстителей. В комиксах он представлен как могущественный воин, обладающий невероятной силой, выносливостью и способностью управлять молнией. Его легендарный молот Мьёльнир, выкованный из звёздного металла ура, наделяет его способностью летать, вызывать грозы и возвращаться к своему владельцу после броска. Однако поднять его может только тот, кто «достоин» — это ключевой мотив в историях о Торе, включая его временную потерю права владеть молотом и последующее искупление.",
+  //           id: 21,
+  //           img: thorImg,
+  //         });
+  //       }, 3000);
+  //     } else if (rndNum > 6) {
+  //       setTimeout(() => {
+  //         reject({
+  //           status: "error",
+  //           message: "Персонаж не найден. Проверьте имя и попробуйте снова",
+  //         });
+  //       }, 3000);
+  //     }
+  //   });
+  // };
 
   const _returnDataCharacter = (res) => {
     return {
@@ -100,6 +137,7 @@ const useMarvelService = () => {
     clearError,
     getAllComics,
     getSingleComic,
+    getCharacterByName,
   };
 };
 

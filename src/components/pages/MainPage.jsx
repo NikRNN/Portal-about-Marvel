@@ -1,6 +1,7 @@
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import CharSearchForm from "../charSearchForm/CharSearchForm";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import { useState } from "react";
 
@@ -23,10 +24,14 @@ const MainPage = () => {
         <ErrorBoundary>
           <CharList changeSelectedChar={changeSelectedChar} />
         </ErrorBoundary>
-
-        <ErrorBoundary>
-          <CharInfo charInfo={selectedChar} />
-        </ErrorBoundary>
+        <div>
+          <ErrorBoundary>
+            <CharInfo charInfo={selectedChar} />
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <CharSearchForm />
+          </ErrorBoundary>
+        </div>
       </div>
       <img className="bg-decoration" src={decoration} alt="vision" />
     </>

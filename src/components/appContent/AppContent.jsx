@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { lazy, Suspense, useRef, createRef } from "react";
+import { useLocation, useRoutes } from "react-router-dom";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import AppHeader from "../appHeader/AppHeader.jsx";
 import Spinner from "../spinner/Spinner.jsx";
@@ -11,36 +11,63 @@ const ComicsPage = lazy(() => import("../comicsList/ComicsList"));
 const SingleComicPage = lazy(() =>
   import("../pages/SingleComicPages/SingleComicPage.jsx")
 );
+const SingleCharacterPage = lazy(() =>
+  import("../pages/singleCharacterPages/SingleCharacterPage.jsx")
+);
 
 const AppContent = () => {
   const location = useLocation();
+
+  const element = useRoutes(
+    [
+      { path: "/", element: <MainPage /> },
+      { path: "/comics", element: <ComicsPage /> },
+      {
+        path: "/comics/:comicId",
+        element: (
+          <ErrorBoundary>
+            {" "}
+            <SingleComicPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: "/characters/:charId",
+        element: (
+          <ErrorBoundary>
+            <SingleCharacterPage />
+          </ErrorBoundary>
+        ),
+      },
+      { path: "*", element: <Page404 /> },
+    ],
+    location
+  );
+
+  const refsMap = useRef(new Map());
+
+  if (!refsMap.current.has(location.pathname)) {
+    refsMap.current.set(location.pathname, createRef());
+  }
+
+  const currentRef = refsMap.current.get(location.pathname);
 
   return (
     <div className="app">
       <AppHeader />
       <main>
         <Suspense fallback={<Spinner />}>
-          <SwitchTransition>
+          <SwitchTransition mode="out-in">
             <CSSTransition
               key={location.pathname}
               timeout={550}
               classNames="fade"
+              nodeRef={currentRef}
               unmountOnExit
             >
-              <Routes location={location}>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/comics" element={<ComicsPage />} />
-                <Route
-                  path="/comics/:comicId"
-                  element={
-                    <ErrorBoundary>
-                      {" "}
-                      <SingleComicPage />
-                    </ErrorBoundary>
-                  }
-                />
-                <Route path="*" element={<Page404 />} />
-              </Routes>
+              <div ref={currentRef} className="transition-wrapper">
+                {element}
+              </div>
             </CSSTransition>
           </SwitchTransition>
         </Suspense>

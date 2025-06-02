@@ -5,6 +5,7 @@ import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMessage.jsx";
 import Skeleton from "../skeleton/Skeleton";
 
+
 const CharInfo = ({ charInfo }) => {
   const [char, setChar] = useState(null);
 
@@ -85,6 +86,7 @@ const View = ({ char }) => {
           );
         })}
       </ul>
+      
     </>
   );
 };

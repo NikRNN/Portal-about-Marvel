@@ -16,13 +16,13 @@
 }
 .button .inner {
   position: relative;
-  background-color: #9F0013;
+  background-color: #9f0013;
   line-height: 18px;
   padding: 0 18px;
   transition: none;
 }
 .button .inner::before {
-  border-color: #9F0013 transparent;
+  border-color: #9f0013 transparent;
   border-style: solid;
   border-width: 0 0 10px 10px;
   content: "";
@@ -33,7 +33,7 @@
   transition: none;
 }
 .button .inner::after {
-  border-color: #9F0013 transparent;
+  border-color: #9f0013 transparent;
   border-style: solid;
   border-width: 0 0 10px 10px;
   content: "";
@@ -44,18 +44,20 @@
   transform: rotate(180deg);
   transition: none;
 }
-.button__main:hover, .button__secondary:hover {
+.button__main:hover,
+.button__secondary:hover {
   color: #fff;
 }
 .button__secondary .inner {
-  background-color: #5C5C5C;
+  background-color: #5c5c5c;
+  /* margin-top: 10px; */
 }
 .button__secondary .inner::before {
-  border-color: #5C5C5C transparent;
+  border-color: #5c5c5c transparent;
   transition: none;
 }
 .button__secondary .inner::after {
-  border-color: #5C5C5C transparent;
+  border-color: #5c5c5c transparent;
   transition: none;
 }
 .button::before {
@@ -72,15 +74,17 @@
   margin-right: 10px;
   transition: none;
 }
-.button.button__main::before, .button.button__main::after {
-  background-color: #9F0013;
+.button.button__main::before,
+.button.button__main::after {
+  background-color: #9f0013;
 }
-.button.button__secondary::before, .button.button__secondary::after {
-  background-color: #5C5C5C;
+.button.button__secondary::before,
+.button.button__secondary::after {
+  background-color: #5c5c5c;
 }
 .button:hover {
   transform: translateY(-5px);
 }
 .button:disabled {
   filter: grayscale(50%);
-}/*# sourceMappingURL=button.css.map */
+} /*# sourceMappingURL=button.css.map */

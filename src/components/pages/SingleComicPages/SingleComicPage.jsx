@@ -15,8 +15,9 @@ const SingleComicPage = () => {
 
   const updateComic = () => {
     clearError();
-
-    getSingleComic(comicId).then((res) => setComic(res));
+    getSingleComic(comicId).then((res) => {
+      setComic(res);
+    });
   };
 
   useEffect(() => {
