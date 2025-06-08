@@ -1,45 +1,9 @@
 import "./singleCharacterPage.scss";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import useMarvelService from "../../../services/useMarvelService";
-import ErrorMessage from "../../errorMessage/ErrorMessage";
-import Spinner from "../../spinner/Spinner";
-import AppBanner from "../../AppBanner/AppBanner";
 
-const SingleCharacterPage = () => {
-  const { charId } = useParams();
-  const [char, setChar] = useState(null);
-  console.log(char);
+const SingleCharacterPage = ({ data }) => {
+  const { thumbnail, name, description } = data;
 
-  const { getSingleCharacter, clearError, loading, error } = useMarvelService();
-
-  const updateChar = () => {
-    clearError();
-    getSingleCharacter(charId).then((res) => setChar(res));
-  };
-
-  useEffect(() => {
-    updateChar();
-  }, []);
-
-  const errorMessage = error ? <ErrorMessage /> : null;
-  const loadingMessage = loading ? <Spinner /> : null;
-  const content = !(errorMessage || loadingMessage || !char) ? (
-    <View char={char} />
-  ) : null;
-
-  return (
-    <>
-      <AppBanner />
-      {errorMessage}
-      {loadingMessage}
-      {content}
-    </>
-  );
-};
-
-const View = ({ char }) => {
-  const { thumbnail, name, description } = char;
+  console.log(data);
 
   return (
     <div className="single-comic">

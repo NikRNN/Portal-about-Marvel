@@ -14,6 +14,7 @@ const SingleComicPage = lazy(() =>
 const SingleCharacterPage = lazy(() =>
   import("../pages/singleCharacterPages/SingleCharacterPage.jsx")
 );
+const SinglePage = lazy(() => import("../pages/SinglePage"));
 
 const AppContent = () => {
   const location = useLocation();
@@ -23,19 +24,19 @@ const AppContent = () => {
       { path: "/", element: <MainPage /> },
       { path: "/comics", element: <ComicsPage /> },
       {
-        path: "/comics/:comicId",
+        path: "/comics/:id",
         element: (
           <ErrorBoundary>
             {" "}
-            <SingleComicPage />
+            <SinglePage Component={SingleComicPage} dataType="comic" />
           </ErrorBoundary>
         ),
       },
       {
-        path: "/characters/:charId",
+        path: "/characters/:id",
         element: (
           <ErrorBoundary>
-            <SingleCharacterPage />
+            <SinglePage Component={SingleCharacterPage} dataType="character" />
           </ErrorBoundary>
         ),
       },
