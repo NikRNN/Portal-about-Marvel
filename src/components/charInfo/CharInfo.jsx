@@ -1,15 +1,13 @@
 import "./charInfo.scss";
 import { useState, useEffect } from "react";
 import useMarvelService from "../../services/useMarvelService";
-import Spinner from "../spinner/Spinner.jsx";
-import ErrorMessage from "../errorMessage/ErrorMessage.jsx";
-import Skeleton from "../skeleton/Skeleton";
-
+import setContent from "../../utils/setContent";
 
 const CharInfo = ({ charInfo }) => {
   const [char, setChar] = useState(null);
 
-  const { loading, error, getSingleCharacter, clearError } = useMarvelService();
+  const { getSingleCharacter, clearError, process, setProcess } =
+    useMarvelService();
 
   const updateChar = () => {
     const id = charInfo;
@@ -17,9 +15,11 @@ const CharInfo = ({ charInfo }) => {
       return;
     }
     clearError();
-    getSingleCharacter(id).then((res) => {
-      setChar(res);
-    });
+    getSingleCharacter(id)
+      .then((res) => {
+        setChar(res);
+      })
+      .then(() => setProcess("finished"));
   };
 
   useEffect(() => {
@@ -28,26 +28,28 @@ const CharInfo = ({ charInfo }) => {
     }
   }, [charInfo]);
 
-  const errorMessage = error ? <ErrorMessage /> : null;
-  const loadingMessage = loading ? <Spinner /> : null;
-  const content = !(errorMessage || loadingMessage || !char) ? (
-    <View char={char} />
-  ) : null;
-  const skeleton =
-    errorMessage || loadingMessage || content ? null : <Skeleton />;
+  //код ниже использовался до создания setContent; аналогично с кодом ниже после return
+  // const errorMessage = error ? <ErrorMessage /> : null;
+  // const loadingMessage = loading ? <Spinner /> : null;
+  // const content = !(errorMessage || loadingMessage || !char) ? (
+  //   <View char={char} />
+  // ) : null;
+  // const skeleton =
+  //   errorMessage || loadingMessage || content ? null : <Skeleton />;
 
   return (
     <div className="char__info">
-      {errorMessage}
+      {/* {errorMessage}
       {loadingMessage}
       {skeleton}
-      {content}
+      {content} */}
+      {setContent(process, View, char)}
     </div>
   );
 };
 
-const View = ({ char }) => {
-  const { name, description, thumbnail, homepage, wiki, comics } = char;
+const View = ({ data }) => {
+  const { name, description, thumbnail, homepage, wiki, comics } = data;
   return (
     <>
       <div className="char__basics">
@@ -86,7 +88,6 @@ const View = ({ char }) => {
           );
         })}
       </ul>
-      
     </>
   );
 };

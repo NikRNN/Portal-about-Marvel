@@ -3,8 +3,6 @@ import "./singleCharacterPage.scss";
 const SingleCharacterPage = ({ data }) => {
   const { thumbnail, name, description } = data;
 
-  console.log(data);
-
   return (
     <div className="single-comic">
       <img src={thumbnail} alt={name} className="single-comic__char-img" />

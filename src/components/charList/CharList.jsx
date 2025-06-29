@@ -2,8 +2,22 @@ import "./charList.scss";
 import { useState, useEffect } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useMarvelService from "../../services/useMarvelService";
-import ErrorMessage from "../errorMessage/ErrorMessage.jsx";
-import Spinner from "../spinner/Spinner.jsx";
+import Spinner from "../spinner/Spinner";
+
+const setContent = (process, Component, newItemsLoading) => {
+  switch (process) {
+    case "waiting":
+      return <Spinner />;
+    case "loading":
+      return newItemsLoading ? <Component /> : <Spinner />;
+    case "finished":
+      return <Component />;
+    case "error":
+      return <ErrorMessage />;
+    default:
+      throw new Error("Ошибка: неожиданное состояние процесса");
+  }
+};
 
 const CharList = ({ changeSelectedChar }) => {
   const [charList, setCharList] = useState([]);
@@ -13,7 +27,7 @@ const CharList = ({ changeSelectedChar }) => {
   const [disabled, setDisabled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const { error, loading, getAllCharacters } = useMarvelService();
+  const { getAllCharacters, process, setProcess } = useMarvelService();
 
   useEffect(() => {
     makeCharList();
@@ -25,6 +39,7 @@ const CharList = ({ changeSelectedChar }) => {
   const makeCharList = () => {
     getAllCharacters().then((res) => {
       setCharList(res);
+      setProcess("finished");
       setOffset(offset + 9);
       setNewItemsLoading(true);
     });
@@ -44,70 +59,64 @@ const CharList = ({ changeSelectedChar }) => {
     });
   };
 
-  const errorMessage = error ? <ErrorMessage /> : null;
-  const loadingStatus = loading && !newItemsLoading ? <Spinner /> : null;
-
-  const content = !(errorMessage || loadingStatus) ? (
-    <div className="char__list">
-      <ul className="char__grid">
-        <TransitionGroup component={null}>
-          {charList.map((item) => {
-            return (
-              <CSSTransition
-                key={item.id}
-                timeout={500}
-                classNames="fade"
-                in={isVisible}
-                appear
-              >
-                <li
-                  onClick={() => changeSelectedChar(item.id)}
-                  className="char__item"
-                >
-                  <img
-                    src={item.thumbnail}
-                    className={
-                      item.thumbnail ==
-                      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-                        ? "char__item__notimg"
-                        : "char__item__img"
-                    }
-                    alt="abyss"
-                  />
-                  <div className="char__name">{item.name}</div>
-                </li>
-              </CSSTransition>
-            );
-          })}
-        </TransitionGroup>
-      </ul>
-
-      {charEnded ? (
-        <button className="char__notchar inner">
-          Извините, больше персонажей нет!
-        </button>
-      ) : (
-        <button
-          disabled={disabled}
-          className="button button__main button__long"
-          onClick={() => {
-            onRepeatRequest(offset);
-          }}
+  const charRender = (arr) => {
+    const chars = arr.map((item) => {
+      return (
+        <CSSTransition
+          key={item.id}
+          timeout={500}
+          classNames="fade"
+          in={isVisible}
+          appear
         >
-          <div className="inner">
-            {disabled ? "Идет загрузка..." : "Показать больше"}
-          </div>
-        </button>
-      )}
-    </div>
-  ) : null;
+          <li
+            onClick={() => changeSelectedChar(item.id)}
+            className="char__item"
+          >
+            <img
+              src={item.thumbnail}
+              className={
+                item.thumbnail ==
+                "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+                  ? "char__item__notimg"
+                  : "char__item__img"
+              }
+              alt="abyss"
+            />
+            <div className="char__name">{item.name}</div>
+          </li>
+        </CSSTransition>
+      );
+    });
+
+    return (
+      <div className="char__list">
+        <ul className="char__grid">
+          <TransitionGroup component={null}>{chars}</TransitionGroup>
+        </ul>
+        {charEnded ? (
+          <button className="char__notchar inner">
+            Извините, больше персонажей нет!
+          </button>
+        ) : (
+          <button
+            disabled={disabled}
+            className="button button__main button__long"
+            onClick={() => {
+              onRepeatRequest(offset);
+            }}
+          >
+            <div className="inner">
+              {disabled ? "Идет загрузка..." : "Показать больше"}
+            </div>
+          </button>
+        )}
+      </div>
+    );
+  };
 
   return (
-    <>
-      {errorMessage}
-      {loadingStatus}
-      {content}
-    </>
+    <>{setContent(process, () => charRender(charList), newItemsLoading)}</>
   );
 };
 

@@ -1,8 +1,7 @@
 import { useHttp } from "../hooks/http.hook";
-import thorImg from "../resources/img/thor.jpeg";
 
 const useMarvelService = () => {
-  const { request, loading, error, setError, clearError } = useHttp();
+  const { request, clearError, process, setProcess } = useHttp();
 
   const _baseOffset = 1;
 
@@ -130,14 +129,15 @@ const useMarvelService = () => {
   };
 
   return {
-    loading,
-    error,
+    clearError,
     getAllCharacters,
     getSingleCharacter,
     clearError,
     getAllComics,
     getSingleComic,
     getCharacterByName,
+    process,
+    setProcess,
   };
 };
 
