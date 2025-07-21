@@ -1,0 +1,101 @@
+@import "../../style/variables.scss";
+
+.char {
+  &__content {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 650px 425px;
+    column-gap: 25px;
+    align-items: start;
+  }
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    column-gap: 25px;
+    row-gap: 30px;
+  }
+  &__item {
+    width: 200px;
+    height: 318px;
+    background-color: $dark;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.3s transform;
+    &__img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      transform: translate(-15px, -15px);
+    }
+    &__notimg {
+      width: 200px;
+      height: 200px;
+      object-fit: unset;
+      transform: translate(-15px, -15px);
+    }
+    &_selected {
+      box-shadow: 0 5px 20px $main-color;
+      transform: translateY(-8px);
+    }
+  }
+  &__name {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 29px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  &__notchar {
+    display: block;
+    margin: 0 auto;
+    min-width: 101px;
+    margin-top: 20px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 18px;
+    transition: 0.3s transform;
+    border: none;
+    background-color: #9f0013;
+    position: relative;
+    &::before {
+      border-color: $main-color transparent;
+      border-style: solid;
+      border-width: 0 0 10px 10px;
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: -10px;
+      transition: none;
+    }
+    &::after {
+      border-color: $main-color transparent;
+      border-style: solid;
+      border-width: 0 0 10px 10px;
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: -10px;
+      transform: rotate(180deg);
+      transition: none;
+    }
+  }
+
+}
+
+.fade-enter,
+.fade-appear {
+  opacity: 0;
+  transform: translateY(80px);
+}
+.fade-enter-active,
+.fade-appear-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 1200ms ease-in-out transform 1200ms ease-in-out;
+}
