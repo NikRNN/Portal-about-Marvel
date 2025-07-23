@@ -3,35 +3,64 @@
 **Основные каталоги:**
 
 ```
+public/
+src/
+    assets/
+        components/
+            app/
+            appBaner/
+            appContent/
+            appHeader/
+            charInfo/
+            charList/
+            charSearchForm/
+            comicList/
+            errorBoundary/
+            errorMessage/
+            pages/
+                singleCharacterPages/
+                singleComicPages/
+            randomChar/
+            singleComic/
+            skeleton/
+            spinner/
+        hooks/
+        resources/
+        services/
+        style/
+        utils/
+index.html
 
 ```
 
 =======
 
-# Book library app (Vite + React + Redux)
+# Marvel-about-Portal (Vite + React + )
 
-![Интерфейс приложения](./screenshots/screenshots1.png)
-![Интерфейс приложения](./screenshots/screenshots2.png)
-![Интерфейс приложения](./screenshots/screenshots3.png)
+![Интерфейс приложения](./src/screenshots/screenshots1.png)
+![Интерфейс приложения](./src/screenshots/screenshots2.png)
+![Интерфейс приложения](./src/screenshots/screenshots3.png)
+![Интерфейс приложения](./src/screenshots/screenshots4.png)
+![Интерфейс приложения](./src/screenshots/screenshots5.png)
+![Интерфейс приложения](./src/screenshots/screenshots6.png)
 
 ## О проекте
 
-Book Library App — приложение для отображения и фильтрации списка книг.
-Пользователь может фильтровать книги по автору и названию, отмечать любимые книги и удалять книги из списка. В проекте используется имитация сервера с базой книг. Пользователь может подгружать книги с сервера (json-файл).
+Portal about Marvel — приложение, посвященное Вселенной Марвел. Приложение предоставляет пользователю сервер (Marvel's API) для загрузки персонажей/комиксов. Пользователь также может выбирать случайного персонажа, искать конкретного персонажа и переходить на страницы персонажа на Википедии или на marvel.com. Проект написан на React.
 
 ## Технологии
 
 - Vite 7
-- React 19 (функциональные компонента)
-- CSS
-- axios
+- React 19 (функциональные компоненты)
+- SCSS
+- Marvel's API (использование сервера для загрузки комиксов и персонажей)
 
 ## Установка и запуск
 
 ```bash
-git clone https://github.com/NikRNN/Book-Library-App.git
-cd Book-Library-App
+git clone https://github.com/NikRNN/Portal-about-Marvel.git
+cd Portal-About-Marvel
 npm install
-npm run dev (для фронтенда)
-node index.js (для сервера)
+npm run dev
+
 ```
