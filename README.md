@@ -37,12 +37,12 @@ index.html
 
 # Marvel-about-Portal (Vite + React + )
 
-![Интерфейс приложения](./src/screenshots/screenshots1.png)
-![Интерфейс приложения](./src/screenshots/screenshots2.png)
-![Интерфейс приложения](./src/screenshots/screenshots3.png)
-![Интерфейс приложения](./src/screenshots/screenshots4.png)
-![Интерфейс приложения](./src/screenshots/screenshots5.png)
-![Интерфейс приложения](./src/screenshots/screenshots6.png)
+![Интерфейс приложения](./src/screenshots/screenshot1.png)
+![Интерфейс приложения](./src/screenshots/screenshot2.png)
+![Интерфейс приложения](./src/screenshots/screenshot3.png)
+![Интерфейс приложения](./src/screenshots/screenshot4.png)
+![Интерфейс приложения](./src/screenshots/screenshot5.png)
+![Интерфейс приложения](./src/screenshots/screenshot6.png)
 
 ## О проекте
 
