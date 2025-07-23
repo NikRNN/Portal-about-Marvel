@@ -35,7 +35,7 @@ index.html
 
 =======
 
-# Marvel-about-Portal (Vite + React + )
+# Marvel-about-Portal (Vite + React)
 
 ![Интерфейс приложения](./src/screenshots/screenshot1.png)
 ![Интерфейс приложения](./src/screenshots/screenshot2.png)
