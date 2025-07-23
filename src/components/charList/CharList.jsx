@@ -29,8 +29,6 @@ const CharList = ({ changeSelectedChar }) => {
 
   const { getAllCharacters, process, setProcess } = useMarvelService();
 
-  console.log("render");
-
   useEffect(() => {
     makeCharList();
     setTimeout(() => {
