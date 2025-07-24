@@ -51,11 +51,12 @@ Portal about Marvel — приложение, посвященное Вселе�
 ## Технологии
 
 - JavaScript
-- Vite 7
-- React 19 (функциональные компоненты, react-router-dom. react-transition-group)
+- Vite
+- React (функциональные компоненты, react-router-dom, react-transition-group)
 - SCSS
-- Marvel's API (использование сервера для загрузки комиксов и персонажей)
+- sass-embedded
 - formik + yup
+- eslint (eslint-plugin-react-hooks, eslint-plugin-react-refresh)
 
 ## Установка и запуск
 
