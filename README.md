@@ -3,33 +3,34 @@
 **Основные каталоги:**
 
 ```
-public/
-src/
-    assets/
-        components/
-            app/
-            appBaner/
-            appContent/
-            appHeader/
-            charInfo/
-            charList/
-            charSearchForm/
-            comicList/
-            errorBoundary/
-            errorMessage/
-            pages/
-                singleCharacterPages/
-                singleComicPages/
-            randomChar/
-            singleComic/
-            skeleton/
-            spinner/
-        hooks/
-        resources/
-        services/
-        style/
-        utils/
-index.html
+.
+├── public/
+├── src/
+│   └── assets/
+│       ├── components/
+│       │   ├── app/
+│       │   ├── appBaner/
+│       │   ├── appContent/
+│       │   ├── appHeader/
+│       │   ├── charInfo/
+│       │   ├── charList/
+│       │   ├── charSearchForm/
+│       │   ├── comicList/
+│       │   ├── errorBoundary/
+│       │   ├── errorMessage/
+│       │   ├── pages/
+│       │   │   ├── singleCharacterPages/
+│       │   │   └── singleComicPages/
+│       │   ├── randomChar/
+│       │   ├── singleComic/
+│       │   ├── skeleton/
+│       │   └── spinner/
+│       ├── hooks/
+│       ├── resources/
+│       ├── services/
+│       ├── style/
+│       └── utils/
+└── index.html
 
 ```
 
